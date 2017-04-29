@@ -1,0 +1,23 @@
+<div id="body">
+    <!--<span ng-controller="timerCtrl" id="clock">{{clock}}</span>-->
+    <div id="container">
+        <canvas id="thegame" width="1170" height="460"></canvas>
+
+        <div id="btmBar">
+            <img id="hp" ng-src='{{hp}}' />
+            <img id="hpL" ng-src='{{hpL}}' />
+        </div>
+        <div id="question">
+            <div>
+                <h2>{{question}}</h2>
+                <button class="ansBtns">{{answer1}}</button>
+                <button class="ansBtns">{{answer2}}</button>
+                <button class="ansBtns">{{answer3}}</button>
+            </div>
+        </div>
+        <p id="gameOver">GAME OVER</p>
+    </div>
+        <script src="assets/js/animation.js"></script>
+    <!--<script src="../assets/js/animation.js"></script>-->
+    <!--<script src="assets/js/questionS.js"></script>-->
+</div>
