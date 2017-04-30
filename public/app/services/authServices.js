@@ -62,15 +62,15 @@ angular.module("authServices",[])
 })
 
 .factory("AuthInterceptors",function(AuthToken){
-var authInterceptorsFactory={};
-//grab the token if exist
-authInterceptorsFactory.request=function(config){
-     var token=AuthToken.getToken();
-     //if token exist asain it to the header ..so we can grab it
-     if(token) {
-         config.headers["x-access-token"]=token;
-     }
-         return config;
-     }
+    var authInterceptorsFactory={};
+    //grab the token if exist
+    authInterceptorsFactory.request=function(config){
+    var token=AuthToken.getToken();
+    //if token exist asain it to the header ..so we can grab it
+    if(token) {
+        config.headers["x-access-token"]=token;
+    }
+        return config;
+    }
     return authInterceptorsFactory;
 });
