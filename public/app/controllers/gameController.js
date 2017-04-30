@@ -7,33 +7,26 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
     $('#btmBar').hide();
     $('#gameOver').hide();
     var index = 0;
-    var points = 5;
-    var pointsL = 5;
-    startFlag = false;
+    //user health
+    var userPoints = 5;
+    //enemy health
+    var enemyPoints = 5;
+    var damage = 1;
 
     LoadQuestions.load().then(function(response){
-        console.log(response);
         questions = response.data;
-        console.log(questions);
     })
+
+    //subscribe for event game:easy
+    $scope.$on('game:easy', function(event, args) {
+        damage = 6;
+        init();
+    });
 
     $scope.$on('timer:expire', function(event, args) {
         incorrectAnswer();
         nextQuestion();
     });
-
-    window.addEventListener('keydown', function (event) {
-        if (event.keyCode == 32 && !startFlag) {
-            $('canvas').show('slow');
-            $('#btmBar').show('slow');
-            idle(300, 'assets/sprites/Boy/Idle.png', false);
-            idle(700, 'assets/sprites/Girl/IdleL.png', true);
-            setTimeout(function () {
-                $('#question').show('slow');
-            }, 1500)
-            startFlag = true;
-        }
-    }, false);
     
     function init() {
         nextQuestion();
@@ -48,13 +41,19 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
 
             nextQuestion();
         })
-    };
 
-    init();
+        $('canvas').show('slow');
+        $('#btmBar').show('slow');
+        idle(300, 'assets/sprites/Boy/Idle.png', false);
+        idle(700, 'assets/sprites/Girl/IdleL.png', true);
+        setTimeout(function () {
+            $('#question').show('slow');
+        }, 1500)
+    };
 
     function correctAnswer(){
         $('#question').hide('slow');
-        pointsL--;
+        enemyPoints--;
         running(300, 1000, 'assets/sprites/Boy/run.png', false);
         setTimeout(function () {
             attack(1000, 'assets/sprites/Boy/attack.png', false);
@@ -64,12 +63,20 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
 
     function incorrectAnswer(){
         $('#question').hide('slow');
-        points--;
+        userPoints-=damage;
         running(700, 50, 'assets/sprites/Girl/runL.png', true);
         setTimeout(function () {
             attack(50, 'assets/sprites/Girl/attackL.png', true);
             falling(300, 'assets/sprites/Boy/falling.png', false);
         }, 870);
+    }
+
+    function gameResult(win){
+        if(win){
+            $scope.gameResult = "you win";
+        } else {
+            $scope.gameResult = "you lost";
+        }
     }
 
     function nextQuestion() {
@@ -82,14 +89,37 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
                     $scope.answer1 = questions[index].firstanswer;
                     $scope.answer2 = questions[index].secondanswer;
                     $scope.answer3 = questions[index].thirdanswer;
-                    $scope.hp = healthbar[points];
-                    $scope.hpL = healthbarL[pointsL];
-                    $('#question').show('slow');
+
+                    if(userPoints <= 0) {
+                        $scope.hp = healthbar[0];
+                    } else {
+                        $scope.hp = healthbar[userPoints];
+                    }
+
+                    if(enemyPoints <= 0) {
+                        $scope.hpL = healthbarL[0];
+                    } else {
+                        $scope.hpL = healthbarL[enemyPoints];
+                    }
+
+                    
                     ctx.clearRect(0, 0, 1170, 460);
                     idle(300, 'assets/sprites/Boy/Idle.png', false);
                     idle(700, 'assets/sprites/Girl/IdleL.png', true);
                 })
-                $rootScope.$broadcast('timer:start', '');
+
+                if(userPoints <= 0){
+                    gameResult(false);
+                }
+
+                if(enemyPoints <= 0){
+                    gameResult(true);
+                }
+
+                if(userPoints > 0 && enemyPoints > 0){
+                    $('#question').show('slow');
+                    $rootScope.$broadcast('timer:start', '');                    
+                }
             }
             index++;
         }, 2500);
@@ -128,6 +158,9 @@ function msToTimerSecondsConverter(s) {
 //   s = (s - secs) / 60;
 //   var mins = s % 60;
 //   var hrs = (s - mins) / 60;
+  if(secs < 0)
+    secs = 0;
+
   return secs + ' seconds left';
 }
 
@@ -136,6 +169,3 @@ var healthbarL = ['assets/sprites/hpbar/hpbar-0L.png', 'assets/sprites/hpbar/hpb
 var roundEnds = ['You WIN!', 'You lose!'];
 
 var questions;
-var hpImagePaths = [
-    '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'
-]

@@ -14,7 +14,7 @@ angular.module("mainController",["authServices"])
         Auth.getUser().then(function(data){
             console.log(data);
             console.log(data.data);
-            
+
             app.username=data.data.username;
             app.useremail=data.data.email;
             app.loadme=true;
@@ -47,24 +47,29 @@ if($location.hash()=="_=_") $location.hash(null);
      //pass front-end to back-end 
      //this.(function..) after this request is made pass the data 
           Auth.login(app.loginData).then(function(data){  
-        if(data.data.success){
+        if(data.data.success) {
             app.loading=false;
             //sucess message
             app.successMsg=data.data.message;
             //Location.path is angular function recirect to the path in ""
-            $timeout(function(){
+            $timeout(function() {
                 $location.path("/about");
                 
             },2000);
-        }else{
+        } else {
             app.loading=false;
-            app.errorMsg=data.data.message;
-
-    
-         }
+            app.errorMsg=data.data.message;    
+        }
     });
 
 };
+
+this.easy=function() {
+    setTimeout(function() {
+        //send broadcast on event game:easy
+        $rootScope.$broadcast('game:easy', '');
+    }, 800);
+}
 
 this.logout=function(){
     Auth.logout();

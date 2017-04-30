@@ -1,8 +1,10 @@
-<div id="body">
-    <div id="container">
+<div id="body" ng-controller="gameController">
+    <div id="container" >
         <canvas id="thegame" width="1170" height="460"></canvas>
 
         <span ng-controller="timerController" id="clock">{{clock}}</span>
+
+        <span id="gameResult" id="gameOver">{{gameResult}}</span>
 
         <div id="btmBar">
             <img id="hp" ng-src='{{hp}}' />
@@ -16,7 +18,6 @@
                 <button class="ansBtns">{{answer3}}</button>
             </div>
         </div>
-        <p id="gameOver">GAME OVER</p>
     </div>
         <script src="assets/js/animation.js"></script>
     <!--<script src="../assets/js/animation.js"></script>-->
