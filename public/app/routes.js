@@ -7,6 +7,7 @@ angular.module("appRoutes",["ngRoute"])
         //our default route
         templateUrl:"app/views/pages/home.html"
     })
+    
     .when("/about",{
         templateUrl:"app/views/pages/about.html"
     })//if user type other url redirect him to hoem page
@@ -17,12 +18,6 @@ angular.module("appRoutes",["ngRoute"])
         controller:"regCtrl",
         controllerAs:"register",
         authenticated:false
-    })
-
-    .when("/test",{
-        templateUrl:"app/views/pages/test.html",
-        controller:"testControler",
-        controllerAs:"test"
     })
 
     .when("/game",{
@@ -57,6 +52,14 @@ angular.module("appRoutes",["ngRoute"])
         authenticated:false
 
     })
+
+    .when("/addquestions",{
+        templateUrl:"app/views/pages/addquestion.html",
+        controller:"questionController",
+        controllerAs:"addquestion",
+        authenticated:true
+    })
+
     .otherwise({redirectTo:"/"});
 
     $locationProvider.html5Mode({

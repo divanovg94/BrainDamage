@@ -1,27 +1,26 @@
 angular.module("mainController",["authServices"])
 
 .controller("mainCtrl",function(Auth,$timeout,$location,$rootScope,$window){
-  var app=this;
-  //app.load :  hide the html until loadme become true ..while loadme become true we will already have all the data from the user
-  //in index.html at body :ng-show="main.loadme" ng-cloak
- app.loadme=false;
-  //ahytime a new route is change is going to invoke everything inside
-  $rootScope.$on("$routeChangeStart",function(){
+    var app=this;
+    //app.load :  hide the html until loadme become true ..while loadme become true we will already have all the data from the user
+    //in index.html at body :ng-show="main.loadme" ng-cloak
+    app.loadme=false;
+    //ahytime a new route is change is going to invoke everything inside
+    $rootScope.$on("$routeChangeStart",function(){
  
-
-      //if user is logged in
-     if(Auth.isLoggedIn()){
-    app.isLoggedIn=true;
-    Auth.getUser().then(function(data){
-        app.username=data.data.username;
-        app.useremail=data.data.email;
+    //if user is logged in
+    if(Auth.isLoggedIn()){
+        app.isLoggedIn=true;
+        Auth.getUser().then(function(data){
+            app.username=data.data.username;
+            app.useremail=data.data.email;
+            app.loadme=true;
+        })
+    } else{
+        app.username="";
+        app.isLoggedIn=false;
         app.loadme=true;
-    })
-} else{
-    app.username="";
-    app.isLoggedIn=false;
-    app.loadme=true;
-}
+    }
 //remove the _=_ in the url
 if($location.hash()=="_=_") $location.hash(null);
   });
@@ -34,7 +33,6 @@ if($location.hash()=="_=_") $location.hash(null);
     $window.location=$window.location.protocol+"//"+$window.location.host+"/auth/facebook";
   
     console.log("++++" + $window.location);
-  
   };
 //if user is logged in
 

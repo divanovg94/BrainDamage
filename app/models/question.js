@@ -2,13 +2,15 @@ var mongoose=require("mongoose");
 var Schema=mongoose.Schema;
 
 
-var UserSchema=new Schema({
-    //validations to be String,lowercase and unique username
+var QuestionSchema=new Schema({
     // question:
-    username:{type:String,lowercase:true,required:true,unique:true},
-    password:{type:String,required:true},
-    email:{type:String,required:true,lowercase:true,unique:true}
+    question:{type:String,required:true,unique:true},
+    firstanswer:{type:String,required:true},
+    secondanswer:{type:String,required:true},
+    thirdanswer:{type:String,required:true},
+    correctanswer:{type:String,required:true}
 });
 
+
 //exports in the server file
-module.exports=mongoose.model("User",UserSchema);
+module.exports=mongoose.model("Question",QuestionSchema);

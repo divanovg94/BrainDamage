@@ -1,7 +1,8 @@
 
-var User= require("../models/user");
-var jwt =require("jsonwebtoken");
-var secret="rokibalboa";
+var User = require("../models/user");
+var Question = require("../models/question");
+var jwt = require("jsonwebtoken");
+var secret = "rokibalboa";
 
 //export the route 
 module.exports=function(router){
@@ -26,8 +27,6 @@ router.post("/users",function(req,res){
     });
     }
 });
-
-// router.post("/insertQuestion",function(req,res){})
 
 //User Login
 router.post("/authenticate",function(req,res){
@@ -58,6 +57,33 @@ router.post("/authenticate",function(req,res){
         }
     });
 });
+
+//TODO add validation
+router.post("/question",function(req,res){
+    var questions = new Question();
+    questions.question      = req.body.question;
+    questions.firstanswer   = req.body.firstanswer;
+    questions.secondanswer  = req.body.secondanswer;
+    questions.thirdanswer   = req.body.thirdanswer;
+    questions.correctanswer   = req.body.correctanswer;
+    questions.save();
+    // res.json({success:true,message:"Question has been added"});
+
+//find if there is username password and email entred or they are empty
+    // if(req.body.question==null||req.body.question==""||req.body.firstanswer==null||req.body.firstanswer==""||req.body.secondanswer==null||req.body.secondanswer==""
+    // ||req.body.thirdanswer==null||req.body.thirdanswer==""){
+    //     res.json({success:false,message:"Enter username,email and password"});
+    // } else{
+    // questions.save(function(err){
+    //     if(err){
+    //         res.json({success:false,message:"Username alrady exist"});
+        
+    //     }else{
+    //         res.json({success:true,message:"Your Account is Created!"});
+    //     }
+    // });
+});
+
 //uncryopt the token
 router.use(function(req,res,next){
     // we can get the token from:  request   or URL        or        headers
@@ -72,17 +98,19 @@ router.use(function(req,res,next){
           //if token is VALID  
           //decoded mean take the token comabine it with the secret ( that i write) verify it  adn after that send it back decoded
           else{
-      req.decoded=decoded;
+            req.decoded=decoded;
 
-      //this will let the aplication continue 
-      next();
-          }
-      });
+            //this will let the aplication continue 
+            next();
+            }
+        });
    } else{
        res.json({success:false,message:"No token provided"})
       
    }
 });
+
+
 
 //get the current userr
 router.post("/me",function(req,res){
