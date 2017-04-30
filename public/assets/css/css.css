@@ -6,15 +6,20 @@
     unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
 }
 
-#body {
+body{
     background-image: url('../sprites/loadingScreen.png');
-    background-repeat: no-repeat;
+    /*background-repeat: no-repeat;
     background-attachment: fixed;
-    background-position: center;
-   overflow: hidden;
+    background-position: center;*/
+    b
+    overflow: hidden;
 }
-
-
+.navbar{
+    background: black;
+}
+.page-header{
+    margin-top: 100px;
+}
 #thegame {
     margin: 10px auto;
     border: 1px black solid;
@@ -99,4 +104,8 @@ span#hp {
     border-style: unset;
     
 
+}
+
+#register-css{
+    width: 20em;
 }

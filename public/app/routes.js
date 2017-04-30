@@ -15,7 +15,8 @@ angular.module("appRoutes",["ngRoute"])
     .when("/register",{
         templateUrl:"app/views/pages/users/register.html",
         controller:"regCtrl",
-        controllerAs:"register"
+        controllerAs:"register",
+        authenticated:false
     })
 
     .when("/test",{
@@ -27,28 +28,33 @@ angular.module("appRoutes",["ngRoute"])
     .when("/game",{
         templateUrl:"app/views/pages/game.html",
         controller:"gameController",
-        controllerAs:"game"
+        controllerAs:"game",
+        authenticated:true
     })
 
     .when("/login",{
-        templateUrl:"app/views/pages/users/login.html"
+        templateUrl:"app/views/pages/users/login.html",
+        authenticated:false
     })
 
     .when("/logout",{
         templateUrl:"app/views/pages/users/logout.html"
     })
     .when("/profile",{
-        templateUrl:"app/views/pages/users/profile.html"
+        templateUrl:"app/views/pages/users/profile.html",
+        authenticated:true
     })
     .when("/facebook/:token",{
         templateUrl:"app/views/pages/users/social/social.html",
         controller:"facebookCtrl",
-        controllerAs:"facebook"
+        controllerAs:"facebook",
+        authenticated:false
     })
     .when("/facebookerror",{
         templateUrl:"app/views/pages/users/login.html",
         controller:"facebookCtrl",
-        controllerAs:"facebook"
+        controllerAs:"facebook",
+        authenticated:false
 
     })
     .otherwise({redirectTo:"/"});

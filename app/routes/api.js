@@ -27,6 +27,8 @@ router.post("/users",function(req,res){
     }
 });
 
+// router.post("/insertQuestion",function(req,res){})
+
 //User Login
 router.post("/authenticate",function(req,res){
     console.log("auth")
