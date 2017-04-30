@@ -19,7 +19,22 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
 
     //subscribe for event game:easy
     $scope.$on('game:easy', function(event, args) {
-        damage = 6;
+        console.log("easy");
+        damage = 1;
+        init();
+    });
+
+    //subscribe for event game:normal
+    $scope.$on('game:normal', function(event, args) {
+        console.log("normal");
+        damage = 2;
+        init();
+    });
+
+    //subscribe for event game:hard
+    $scope.$on('game:hard', function(event, args) {
+        console.log("hard");
+        damage = 5;
         init();
     });
 
@@ -32,7 +47,7 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
         nextQuestion();
 
         $('.ansBtns').on("click", function () {
-            unvisible = true;
+            
             if ($(this).text() != questions[index].correctanswer) {
                 correctAnswer();
             } else {
@@ -52,20 +67,24 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
     };
 
     function correctAnswer(){
+
         $('#question').hide('slow');
         enemyPoints--;
         running(300, 1000, 'assets/sprites/Boy/run.png', false);
         setTimeout(function () {
+            unvisible = true;
             attack(1000, 'assets/sprites/Boy/attack.png', false);
             falling(700, 'assets/sprites/Girl/fallingL.png', true);
         }, 860);
     }
 
     function incorrectAnswer(){
+        
         $('#question').hide('slow');
         userPoints-=damage;
         running(700, 50, 'assets/sprites/Girl/runL.png', true);
         setTimeout(function () {
+            unvisible = true;
             attack(50, 'assets/sprites/Girl/attackL.png', true);
             falling(300, 'assets/sprites/Boy/falling.png', false);
         }, 870);

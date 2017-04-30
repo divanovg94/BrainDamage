@@ -70,6 +70,18 @@ this.easy=function() {
         $rootScope.$broadcast('game:easy', '');
     }, 800);
 }
+this.normal=function() {
+    setTimeout(function() {
+        //send broadcast on event game:normal
+        $rootScope.$broadcast('game:normal', '');
+    }, 800);
+}
+this.hard=function() {
+    setTimeout(function() {
+        //send broadcast on event game:hard
+        $rootScope.$broadcast('game:hard', '');
+    }, 800);
+}
 
 this.logout=function(){
     Auth.logout();
