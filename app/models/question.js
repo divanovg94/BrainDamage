@@ -2,7 +2,7 @@ var mongoose=require("mongoose");
 var Schema=mongoose.Schema;
 
 
-var QuestionSchema=new Schema({
+var QuestionSchema = new Schema({
     // question:
     question:{type:String,required:true,unique:true},
     firstanswer:{type:String,required:true},
@@ -13,4 +13,4 @@ var QuestionSchema=new Schema({
 
 
 //exports in the server file
-module.exports=mongoose.model("Question",QuestionSchema);
+module.exports=mongoose.model("Question", QuestionSchema);
