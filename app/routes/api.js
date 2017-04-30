@@ -30,30 +30,27 @@ module.exports=function(router){
 
     //User Login
     router.post("/authenticate",function(req,res){
-        console.log("auth")
-        console.log(req.body.username)
-        console.log(req.body.password)
         //this will search for user with username:req.body.username  (this will take the username is provided in request
         // and search in DB for this use
         User.findOne({username:req.body.username}).select("email username password").exec(function(err,user){
             if(err) {
                 throw err;
             }
-            
+            var validPassword = false;
             if(!user){
-                    res.json({success:false,message:"Could not authenticate!"});
+                res.json({success:false,message:"Could not authenticate!"});
             } else if(user){
                 if(req.body.password) {
-                    var validPassword= user.comparePassword(req.body.password);
+                    validPassword = user.comparePassword(req.body.password);
                 } else{ 
-            res.json({success:false,message:"No password provided"});
-                
-            }
-            if(!validPassword){
-                    res.json({success:false,message:"Cold not authenticate password"})
-            } else{  
-                res.json({success:true,message:"User authenticated!",token:token});
-            }
+                    res.json({success:false,message:"No password provided"});
+                }
+                if(validPassword){
+                    var token=  jwt.sign({ username:user.username, email:user.email},secret,{expiresIn:"5h"});
+                    res.json({success:true,message:"User authenticated!",token:token});
+                } else {  
+                    res.json({success:false,message:"Could not authenticate password"})
+                }
             }
         });
     });
