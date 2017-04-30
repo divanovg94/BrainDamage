@@ -12,6 +12,9 @@ angular.module("mainController",["authServices"])
     if(Auth.isLoggedIn()){
         app.isLoggedIn=true;
         Auth.getUser().then(function(data){
+            console.log(data);
+            console.log(data.data);
+            
             app.username=data.data.username;
             app.useremail=data.data.email;
             app.loadme=true;

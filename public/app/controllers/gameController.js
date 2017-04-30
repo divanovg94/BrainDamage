@@ -1,7 +1,6 @@
-var gameModule = angular.module('gameModule', [])
-gameModule.controller('gameController', function ($scope,$rootScope) {
+var gameModule = angular.module('gameModule', ["questionService"])
+gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestions) {
 
- 
     var answers = [];
     $('canvas').hide();
     $('#question').hide();
@@ -11,6 +10,12 @@ gameModule.controller('gameController', function ($scope,$rootScope) {
     var points = 5;
     var pointsL = 5;
     startFlag = false;
+
+    LoadQuestions.load().then(function(response){
+        console.log(response);
+        questions = response.data;
+        console.log(questions);
+    })
 
     $scope.$on('timer:expire', function(event, args) {
         incorrectAnswer();
@@ -35,7 +40,7 @@ gameModule.controller('gameController', function ($scope,$rootScope) {
 
         $('.ansBtns').on("click", function () {
             unvisible = true;
-            if ($(this).text() != questions[index].corA) {
+            if ($(this).text() != questions[index].correctanswer) {
                 correctAnswer();
             } else {
                 incorrectAnswer();
@@ -70,14 +75,13 @@ gameModule.controller('gameController', function ($scope,$rootScope) {
     function nextQuestion() {
         ctx.clearRect(0, 0, 1170, 460);
         setTimeout(function () {
-            index++;
             if (index < questions.length) {
                 $scope.$apply(function () {
                     unvisible = false;
-                    $scope.question = questions[index].q;
-                    $scope.answer1 = questions[index].a1;
-                    $scope.answer2 = questions[index].a2;
-                    $scope.answer3 = questions[index].a3;
+                    $scope.question = questions[index].question;
+                    $scope.answer1 = questions[index].firstanswer;
+                    $scope.answer2 = questions[index].secondanswer;
+                    $scope.answer3 = questions[index].thirdanswer;
                     $scope.hp = healthbar[points];
                     $scope.hpL = healthbarL[pointsL];
                     $('#question').show('slow');
@@ -87,6 +91,7 @@ gameModule.controller('gameController', function ($scope,$rootScope) {
                 })
                 $rootScope.$broadcast('timer:start', '');
             }
+            index++;
         }, 2500);
     }
 });
@@ -130,105 +135,81 @@ var healthbar = ['assets/sprites/hpbar/hpbar-0.png', 'assets/sprites/hpbar/hpbar
 var healthbarL = ['assets/sprites/hpbar/hpbar-0L.png', 'assets/sprites/hpbar/hpbar-20L.png', 'assets/sprites/hpbar/hpbar-40L.png', 'assets/sprites/hpbar/hpbar-60L.png', 'assets/sprites/hpbar/hpbar-80L.png', 'assets/sprites/hpbar/hpbar-100L.png'];
 var roundEnds = ['You WIN!', 'You lose!'];
 
-function Question(q, a1, a2, a3, corA) {
-    this.q = q;
-    this.a1 = a1;
-    this.a2 = a2;
-    this.a3 = a3;
-    this.corA = corA;
-}
+// var q1 = new Question(
+//     'Inside which HTML element do we put the JavaScript?',
+//     '<script>',
+//     '<javascript>',
+//     '<js>',
+//     '<script>'
+// );
+// var q2 = new Question(
+//     'What is the correct JavaScript syntax to change the content of the HTML element below? <p id="demo">This is a demonstration.</p>',
+//     'document.getElement("p").innerHTML = "Hello World!";',
+//     'document.getElementById("demo").innerHTML = "Hello World!";',
+//     '#demo.innerHTML = "Hello World!";',
+//     'document.getElementById("demo").innerHTML = "Hello World!";'
+// );
+// var q3 = new Question(
+//     'Where is the correct place to insert a JavaScript?',
+//     'The <body> section',
+//     'The <head> section',
+//     'Both the <head> section and the <body> section are correct',
+//     'Both the <head> section and the <body> section are correct'
+// );
+// var q4 = new Question(
+//     'What is the correct syntax for referring to an external script called "xxx.js"?',
+//     '<script src="xxx.js">',
+//     '<script href="xxx.js">',
+//     '<script name="xxx.js">',
+//     '<script src="xxx.js">'
+// );
+// var q5 = new Question(
+//     'The external JavaScript file must contain the <script> tag.',
+//     'True',
+//     'False',
+//     'Both, Ha-ha! :)',
+//     'False'
+// );
 
-var q1 = new Question(
-    'Inside which HTML element do we put the JavaScript?',
-    '<script>',
-    '<javascript>',
-    '<js>',
-    '<script>'
-);
-var q2 = new Question(
-    'What is the correct JavaScript syntax to change the content of the HTML element below? <p id="demo">This is a demonstration.</p>',
-    'document.getElement("p").innerHTML = "Hello World!";',
-    'document.getElementById("demo").innerHTML = "Hello World!";',
-    '#demo.innerHTML = "Hello World!";',
-    'document.getElementById("demo").innerHTML = "Hello World!";'
-);
-var q3 = new Question(
-    'Where is the correct place to insert a JavaScript?',
-    'The <body> section',
-    'The <head> section',
-    'Both the <head> section and the <body> section are correct',
-    'Both the <head> section and the <body> section are correct'
-);
-var q4 = new Question(
-    'What is the correct syntax for referring to an external script called "xxx.js"?',
-    '<script src="xxx.js">',
-    '<script href="xxx.js">',
-    '<script name="xxx.js">',
-    '<script src="xxx.js">'
-);
-var q5 = new Question(
-    'The external JavaScript file must contain the <script> tag.',
-    'True',
-    'False',
-    'Both, Ha-ha! :)',
-    'False'
-);
+// var q6 = new Question(
+//     'How do you write "Hello World" in an alert box?',
+//     'msgBox("Hello World");',
+//     'msg("Hello World");',
+//     'alert("Hello World");',
+//     'alert("Hello World");'
+// );
+// var q7 = new Question(
+//     'How do you create a function in JavaScript?',
+//     'function = myFunction()',
+//     'function myFunction()',
+//     'function:myFunction()',
+//     'function = myFunction()'
+// );
 
-var q6 = new Question(
-    'How do you write "Hello World" in an alert box?',
-    'msgBox("Hello World");',
-    'msg("Hello World");',
-    'alert("Hello World");',
-    'alert("Hello World");'
-);
-var q7 = new Question(
-    'How do you create a function in JavaScript?',
-    'function = myFunction()',
-    'function myFunction()',
-    'function:myFunction()',
-    'function = myFunction()'
-);
+// var q8 = new Question(
+//     'How do you call a function named "myFunction"?',
+//     'call myFunction()',
+//     'myFunction()',
+//     'call function myFunction()',
+//     'myFunction()'
+// );
 
-var q8 = new Question(
-    'How do you call a function named "myFunction"?',
-    'call myFunction()',
-    'myFunction()',
-    'call function myFunction()',
-    'myFunction()'
-);
+// var q9 = new Question(
+//     'How to write an IF statement in JavaScript?',
+//     'if i = 5 then',
+//     'if (i == 5)',
+//     'if i == 5 then',
+//     'if (i == 5)'
+// );
+// var q10 = new Question(
+//     'How to write an IF statement for executing some code if "i" is NOT equal to 5?',
+//     ' if (i != 5)',
+//     ' if i <> 5',
+//     ' if (i <> 5)',
+//     ' if (i != 5)'
+// );
 
-var q9 = new Question(
-    'How to write an IF statement in JavaScript?',
-    'if i = 5 then',
-    'if (i == 5)',
-    'if i == 5 then',
-    'if (i == 5)'
-);
-var q10 = new Question(
-    'How to write an IF statement for executing some code if "i" is NOT equal to 5?',
-    ' if (i != 5)',
-    ' if i <> 5',
-    ' if (i <> 5)',
-    ' if (i != 5)'
-);
-
-
-var questions = [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10];
+var questions;
 var hpImagePaths = [
     '10', '20', '30', '40', '50', '60', '70', '80', '90', '100'
 ]
-
-
-// function gameOverF() {
-
-// }
-// function timerCtrl($scope, $timeout) {
-//     $scope.clock = 'loading clock...';
-//     $scope.tickInterval = 1000;
-
-//     var tick = function () {
-//         $scope.clock = Date.now()
-//         $timeout(tick, $scope.tickInterval);
-//     }
-//     $timeout(tick, $scope.tickInterval);
-// }

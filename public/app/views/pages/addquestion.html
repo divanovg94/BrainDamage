@@ -5,19 +5,19 @@
  <!--redData function get all data from cleint and create a single data user-->
 <form ng-submit="addquestion.addQuestion(questionModel);">
     <label class="form-control">Add Question:</label>
-    <input  id="input-questions"class="form-control" placeholder="Add Question Here" type="text" name="question" ng-model="addquestion.questionModel.question">
+    <input  id="input-questions"class="form-control" placeholder="Add Question Here" type="text" name="question" ng-model="questionModel.question">
 
     <label class="form-control">Enter First Answer:</label>
-    <input id="input-questions" class="form-control" placeholder="Add Answer " type="text" name="firstanswer" ng-model="addquestion.questionModel.firstanswer">
+    <input id="input-questions" class="form-control" placeholder="Add Answer " type="text" name="firstanswer" ng-model="questionModel.firstanswer">
 
     <label class="form-control">Enter Second Answer:</label>
-    <input id="input-questions" type="text" class="form-control" placeholder="Add Answer" name="secondanswer" ng-model="addquestion.questionModel.secondanswer">
+    <input id="input-questions" type="text" class="form-control" placeholder="Add Answer" name="secondanswer" ng-model="questionModel.secondanswer">
 
     <label class="form-control">Enter Third Answer:</label>
-    <input id="input-questions" type="text" class="form-control" placeholder="Add Answer" name="thirdanswer" ng-model="addquestion.questionModel.thirdanswer">
+    <input id="input-questions" type="text" class="form-control" placeholder="Add Answer" name="thirdanswer" ng-model="questionModel.thirdanswer">
 
     <label class="form-control">Enter Correct Answer</label>
-    <input id="input-questions" type="text" class="form-control" placeholder="Add Correct Answer"  name="thirdanswer" ng-model="addquestion.questionModel.correctanswer" >
+    <input   id="input-questions" type="text" class="form-control" placeholder="Add Correct Answer"  name="thirdanswer" ng-model="questionModel.correctanswer" >
 
     <button class="btn btn-primary" type="submit"> Confirm </button>
 </form> 

@@ -7,7 +7,7 @@ angular.module("appRoutes",["ngRoute"])
         //our default route
         templateUrl:"app/views/pages/home.html"
     })
-    
+
     .when("/about",{
         templateUrl:"app/views/pages/about.html"
     })//if user type other url redirect him to hoem page
@@ -59,7 +59,7 @@ angular.module("appRoutes",["ngRoute"])
         controllerAs:"addquestion",
         authenticated:true
     })
-
+    
     .otherwise({redirectTo:"/"});
 
     $locationProvider.html5Mode({

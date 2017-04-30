@@ -84,6 +84,18 @@ router.post("/question",function(req,res){
     // });
 });
 
+//TODO add validation
+router.get("/questions",function(req,res){
+    Question.find({}, function(err, users) {
+        if(err){
+            res.json({success:false,message:"Error"});
+        } 
+
+        // res.json({success:false,data:JSON.stringify(users)})
+        res.send(users)
+    });
+});
+
 //uncryopt the token
 router.use(function(req,res,next){
     // we can get the token from:  request   or URL        or        headers
@@ -106,7 +118,6 @@ router.use(function(req,res,next){
         });
    } else{
        res.json({success:false,message:"No token provided"})
-      
    }
 });
 

@@ -41,6 +41,7 @@ angular.module("authServices",[])
      };
 
     return authFactory;
+
 })
 
 .factory("AuthToken",function($window){

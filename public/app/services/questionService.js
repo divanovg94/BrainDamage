@@ -11,10 +11,11 @@ angular.module("questionService",[])
 })
 
 .factory("LoadQuestions",function($http){
-    questionFactory={};
+    questionFactory2={};
 
-    questionFactory.create=function(questionData){
-        return $http.post("api/question",questionData);
+    questionFactory2.load=function(){
+        //make get request to our api
+        return $http.get("api/questions");
     }
-    return questionFactory;
+    return questionFactory2;
 });

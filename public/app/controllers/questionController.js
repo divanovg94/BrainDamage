@@ -6,11 +6,9 @@ angular.module('addQuestionModule', ["questionService"])
         app.loading=true;
         app.errorMsg=false;
 
-        console.log(questionModel);
-
         //pass front-end to back-end 
         //this.(function..) after this request is made pass the data 
-        CreateQuestion.create(app.questionModel).then(function(data){  
+        CreateQuestion.create(questionModel).then(function(data){  
             if(data.data.success) {
                 app.loading=false;
                 //sucess message
