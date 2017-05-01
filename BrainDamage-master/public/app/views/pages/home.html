@@ -1,0 +1,7 @@
+<div class="page-header">
+    <h1>Hello {{main.username}} </h1>
+
+    <a ng-show="main.isLoggedIn" href="/game" ng-click="main.easy();">Game-easy</a>
+    <a ng-show="main.isLoggedIn" href="/game" ng-click="main.normal();">Game-normal</a>
+    <a ng-show="main.isLoggedIn" href="/game" ng-click="main.hard();">Game-hard</a>
+</div>
