@@ -14,6 +14,8 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
     var damage = 1;
 
     LoadQuestions.load().then(function(response){
+        //TODO do shuffle here on resposen.data array
+        //TODO check response data with log
         questions = response.data;
     })
 
@@ -22,6 +24,7 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
         console.log("easy");
         damage = 1;
         init();
+        event.preventDefault();
     });
 
     //subscribe for event game:normal
@@ -29,6 +32,7 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
         console.log("normal");
         damage = 2;
         init();
+        event.preventDefault();
     });
 
     //subscribe for event game:hard
@@ -36,10 +40,10 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
         console.log("hard");
         damage = 5;
         init();
+        event.preventDefault();
     });
 
     $scope.$on('timer:expire', function(event, args) {
-        console.log("expire");
         incorrectAnswer();
         nextQuestion();
     });
@@ -48,6 +52,7 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
         nextQuestion();
 
         $('.ansBtns').on("click", function () {
+            $rootScope.$broadcast('timer:stop', '');
             
             if ($(this).text() != questions[index].correctanswer) {
                 correctAnswer();
@@ -151,27 +156,29 @@ gameModule.controller('timerController', function ($scope,$timeout,$rootScope) {
     $scope.currentSecconds = 10000;
     $scope.oneSecond = 1000;
     var timer;
-    var destroyed = false;
 
-    var tick = function(){
+    $scope.tick = function(){
         $scope.clock = msToTimerSecondsConverter($scope.currentSecconds)
 
-        console.log($scope.currentSecconds + " :currentSecconds")
         if($scope.currentSecconds > 0) {
-            timer = $timeout(tick,1000);
-        } else if($scope.currentSecconds == 0 && !destroyed) {
+            timer = $timeout($scope.tick,1000);
+        } else if($scope.currentSecconds == 0) {
             $rootScope.$broadcast('timer:expire', '');
         }
 
     }
 
+    $scope.$on('timer:stop', function(event, args){
+        $timeout.cancel(timer);
+    });
+
     $scope.$on('timer:start', function(event, args) {
+        $timeout.cancel(timer);
         $scope.currentSecconds = 10000;
-        timer = $timeout(tick,1000);
+        $scope.tick();
     });
 
     $scope.$on("$destroy", function handleDestroyEvent() {
-            destroyed = true;
             $timeout.cancel(timer);
         }
     );
@@ -184,7 +191,7 @@ gameModule.controller('timerController', function ($scope,$timeout,$rootScope) {
         //   var mins = s % 60;
         //   var hrs = (s - mins) / 60;
                 
-        $scope.currentSecconds -= 500;
+        $scope.currentSecconds -= 1000;
         return secs + ' seconds left';
     }
 })
