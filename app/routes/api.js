@@ -8,6 +8,7 @@ var secret = "rokibalboa";
 module.exports=function(router){
     //return route
     //This is the use registration constructor
+    //rqgister web servise
     router.post("/users",function(req,res){
         var user=new User();
         user.username=req.body.username;

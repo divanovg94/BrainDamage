@@ -11,6 +11,7 @@ userModule.controller("regCtrl",function($scope,$http,$location,$timeout,User){
         if(app.regData.password === app.confirmPassword){
             //pass front-end to back-end 
             //this.(function..) after this request is made pass the data 
+            //
             User.create(app.regData).then(function(data){  
                 if(data.data.success){
                     app.loading=false;
