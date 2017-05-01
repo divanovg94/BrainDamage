@@ -39,6 +39,7 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
     });
 
     $scope.$on('timer:expire', function(event, args) {
+        console.log("expire");
         incorrectAnswer();
         nextQuestion();
     });
@@ -145,43 +146,50 @@ gameModule.controller('gameController', function ($scope,$rootScope,LoadQuestion
     }
 });
 
-var currentSecconds = 10000;
-var oneSecond = 1000;
-
 gameModule.controller('timerController', function ($scope,$timeout,$rootScope) {
-
     $scope.clock='loading timer...';
+    $scope.currentSecconds = 10000;
+    $scope.oneSecond = 1000;
+    var timer;
+    var destroyed = false;
 
     var tick = function(){
-        $scope.clock = msToTimerSecondsConverter(currentSecconds)
-        currentSecconds -= oneSecond;
+        $scope.clock = msToTimerSecondsConverter($scope.currentSecconds)
 
-        if(currentSecconds >= 0) {
-            $timeout(tick,oneSecond);
-        } else {
+        console.log($scope.currentSecconds + " :currentSecconds")
+        if($scope.currentSecconds > 0) {
+            timer = $timeout(tick,1000);
+        } else if($scope.currentSecconds == 0 && !destroyed) {
             $rootScope.$broadcast('timer:expire', '');
         }
 
     }
 
     $scope.$on('timer:start', function(event, args) {
-        currentSecconds = 10000;
-        $timeout(tick,oneSecond);
+        $scope.currentSecconds = 10000;
+        timer = $timeout(tick,1000);
     });
+
+    $scope.$on("$destroy", function handleDestroyEvent() {
+            destroyed = true;
+            $timeout.cancel(timer);
+        }
+    );
+
+    function msToTimerSecondsConverter(s) {
+        var ms = s % 1000;
+        s = (s - ms) / 1000;
+        var secs = s % 60;
+        //   s = (s - secs) / 60;
+        //   var mins = s % 60;
+        //   var hrs = (s - mins) / 60;
+                
+        $scope.currentSecconds -= 500;
+        return secs + ' seconds left';
+    }
 })
 
-function msToTimerSecondsConverter(s) {
-  var ms = s % 1000;
-  s = (s - ms) / 1000;
-  var secs = s % 60;
-//   s = (s - secs) / 60;
-//   var mins = s % 60;
-//   var hrs = (s - mins) / 60;
-  if(secs < 0)
-    secs = 0;
 
-  return secs + ' seconds left';
-}
 
 var healthbar = ['assets/sprites/hpbar/hpbar-0.png', 'assets/sprites/hpbar/hpbar-20.png', 'assets/sprites/hpbar/hpbar-40.png', 'assets/sprites/hpbar/hpbar-60.png', 'assets/sprites/hpbar/hpbar-80.png', 'assets/sprites/hpbar/hpbar-100.png'];
 var healthbarL = ['assets/sprites/hpbar/hpbar-0L.png', 'assets/sprites/hpbar/hpbar-20L.png', 'assets/sprites/hpbar/hpbar-40L.png', 'assets/sprites/hpbar/hpbar-60L.png', 'assets/sprites/hpbar/hpbar-80L.png', 'assets/sprites/hpbar/hpbar-100L.png'];
