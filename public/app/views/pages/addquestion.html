@@ -1,0 +1,42 @@
+<div class=page-header>
+    <h1>Add Your Questions</h1>
+</div>
+ <!--when  this form is sumbmit active the function regUser-->
+ <!--redData function get all data from cleint and create a single data user-->
+<form ng-submit="addquestion.addQuestion(questionModel);">
+    <label class="form-control">Add Question:</label>
+    <input  id="input-questions"class="form-control" placeholder="Add Question Here" type="text" name="question" ng-model="questionModel.question">
+
+    <label class="form-control">Enter First Answer:</label>
+    <input id="input-questions" class="form-control" placeholder="Add Answer " type="text" name="firstanswer" ng-model="questionModel.firstanswer">
+
+    <label class="form-control">Enter Second Answer:</label>
+    <input id="input-questions" type="text" class="form-control" placeholder="Add Answer" name="secondanswer" ng-model="questionModel.secondanswer">
+
+    <label class="form-control">Enter Third Answer:</label>
+    <input id="input-questions" type="text" class="form-control" placeholder="Add Answer" name="thirdanswer" ng-model="questionModel.thirdanswer">
+
+    <label class="form-control">Enter Correct Answer</label>
+    <input   id="input-questions" type="text" class="form-control" placeholder="Add Correct Answer"  name="thirdanswer" ng-model="questionModel.correctanswer" >
+
+    <button class="btn btn-primary" type="submit"> Confirm </button>
+</form> 
+
+<!--so when this.loading =true show it-->
+<div class="jumbotron text-center" ng-show="register.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading....</p>
+    
+    </div> 
+    <br>
+    <!--ng-show  apperat when register.successMsg-->
+    <div class="row show-hide-message" ng-show="register.successMsg">
+    <!--this is how angular pass data with double {} -> {{}}-->
+    <!--we need to write also register from <form ng-submit="register.regUser(regData);"> so we will write {{register.successMsg}}-->
+    <div class="alert alert-success">{{register.successMsg}}</div>
+</div>
+    <br>
+<!--ng-show  apperat when register.successMsg-->
+<div class="row show-hide-message" ng-show="register.errorMsg">
+    <div class="alert alert-danger">{{register.errorMsg}}</div>
+</div>

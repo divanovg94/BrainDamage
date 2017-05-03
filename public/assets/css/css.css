@@ -1,0 +1,114 @@
+@font-face {
+    font-family: 'Barrio';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Barrio Regular'), local('Barrio-Regular'), url('https://fonts.gstatic.com/s/barrio/v1/ls-_SA5kU_96PIKsj4eeYPesZW2xOQ-xsNqO47m55DA.woff2') format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+body{
+    background-image: url('../sprites/loadingScreen.png');
+    /*background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;*/
+    b
+    overflow: hidden;
+}
+.navbar{
+    background: black;
+}
+.page-header{
+    margin-top: 100px;
+}
+#thegame {
+    margin: 10px auto;
+    border: 1px black solid;
+    display: block;
+    background: url("../sprites/bambooGIF.gif");
+    background-size: cover;
+}
+#container{
+    box-sizing: border-box;
+}
+#question {
+    font-family: 'Consolas';
+    font-weight: 800;
+    background: url('../sprites/bambooQ.png');
+    margin: 10px auto;
+    /*position: fixed;
+    bottom: 180px;
+    left: 330px;*/
+    position: relative;
+    bottom: 572px;
+    left: 10px;
+    width: 720px;
+    height: 460px;
+    background-size: cover;
+}
+
+#question div {
+    text-align: center;
+    position: relative;
+    right: 13px;
+    top: 60px;
+    padding: 0 80px;
+}
+
+.ansBtns {
+    font-family: monospace;
+    background-color: rgba(0, 0, 0, 0);
+    margin: 20px auto;
+    display: block;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+.ansBtns:hover {
+    background-color: cadetblue;
+}
+
+.ansBtns:active {
+    background-color: limegreen;
+}
+
+span#hp {
+    color: yellow;
+    font-family: 'Consolas';
+    font-size: 50px;
+}
+#hp{
+    float: left;
+}
+#hpL{
+    float: right;
+}
+
+#btmBar {
+    margin: 0 auto;
+    height: 60px;
+    border: 1px solid khaki;
+    width: 1150px;
+    padding: 30px 10px;
+    background: rgba(0, 0, 0, 0.5)
+}
+
+#gameOver{
+    font-family: 'Barrio';
+    color: orangered;
+    font-size: 80px;
+    display: inline;
+    position: relative;
+    bottom: 300px;
+    border: 1px orangered;
+    border-style: unset;
+    
+
+}
+
+#register-css{
+    width: 20em;
+}
+#input-questions{
+ width:30em;
+}
