@@ -30,13 +30,13 @@
     </div> 
     <br>
     <!--ng-show  apperat when register.successMsg-->
-    <div class="row show-hide-message" ng-show="register.successMsg">
+    <div class="row show-hide-message" ng-show="addquestion.successMsg">
     <!--this is how angular pass data with double {} -> {{}}-->
     <!--we need to write also register from <form ng-submit="register.regUser(regData);"> so we will write {{register.successMsg}}-->
-    <div class="alert alert-success">{{register.successMsg}}</div>
+    <div class="alert alert-success">{{addquestion.successMsg}}</div>
 </div>
     <br>
 <!--ng-show  apperat when register.successMsg-->
-<div class="row show-hide-message" ng-show="register.errorMsg">
-    <div class="alert alert-danger">{{register.errorMsg}}</div>
+<div class="row show-hide-message" ng-show="addquestion.errorMsg">
+    <div class="alert alert-danger">{{addquestion.errorMsg}}</div>
 </div>

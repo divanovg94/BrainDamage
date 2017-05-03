@@ -41,7 +41,7 @@ if($location.hash()=="_=_") $location.hash(null);
 
     this.doLogin=function(loginData){
      //app.errorMsg=false becouse when box appear will ebcome true but  after this will set back to false when reg and the box will disapper
-  
+     console.log(loginData)
      app.loading=true;
        app.errorMsg=false;
      //pass front-end to back-end 
@@ -55,15 +55,15 @@ if($location.hash()=="_=_") $location.hash(null);
             $timeout(function() {
                 $location.path("/about");
                 
-            },2000);
+            },3000);
         } else {
             app.loading=false;
-            app.errorMsg=data.data.message;    
+            app.errorMsg=data.data.message;  
+              
         }
     });
 
 };
-
 this.easy=function() {
     setTimeout(function() {
         //send broadcast on event game:easy

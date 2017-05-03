@@ -1,9 +1,9 @@
-<div class=page-header>
+<!--<div class=page-header>
     <h1>User Registration</h1>
-</div>
+</div>-->
  <!--when  this form is sumbmit active the function regUser-->
  <!--redData function get all data from cleint and create a single data user-->
-<form  ng-submit="register.regUser(regData, confirmPassword);">
+<!--<form  ng-submit="register.regUser(regData, confirmPassword);">
 
 <label class="form-control">Email:</label>
 <input  class="form-control" placeholder="Enter Email" type="text" name="email" ng-model="register.regData.email">
@@ -19,16 +19,53 @@
 
 <button class="btn btn-primary" type="submit"> Sign up </button>
     <span id="clock">{{error}}</span>
-    </form> 
+    </form> -->
+
+
+        <!--ng-show  apperat when register.successMsg-->
+<div class=page-header>
+    <h1>Log In</h1>
+</div>
+
+<div class="login-wrap">
+	<div class="login-html">
+	
+		<label for="tab-2" class="tab">Sign Up</label>
+		<div class="login-form">
+			<form ng-submit="register.regUser(regData, confirmPassword);">
+				<div class="group">
+					<label  class="label">Username</label>
+					<input  type="text" class="input" placeholder="Enter Username" name="username" ng-model="register.regData.username">
+				</div>
+                <div class="group">
+					<label  class="label">Email</label>
+					<input  type="text" class="input"  placeholder="Enter Email" type="text" name="email" ng-model="register.regData.email">
+				</div>
+				<div class="group">
+					<label  class="label">Password</label>
+					<input  type="password" class="input" placeholder="Enter Password"  name="password" ng-model="register.regData.password" >
+				</div>
+                		<div class="group">
+					<label  class="label">Password</label>
+					<input  type="password" class="input" placeholder="Enter Confirm Password"  name="confirmPassword" ng-model="register.confirmPassword" >
+				</div>
+				
+				<div class="group">
+                    <button class="button" type="submit"> Sign Up </button> 
+                    
+                  
+				</div>
+			</div>
+			</form>
+            
+		</div>
+	</div>
+</div>
 
 
 
     <!--so when this.loading =true show it-->
-    <div class="jumbotron text-center" ng-show="register.loading">
-        <span class="glyphicon glyphicon-repeat spinner"></span>
-        <p>Loading....</p>
-        
-        </div> 
+    <
         <br>
     <!--ng-show  apperat when register.successMsg-->
     <div class="row show-hide-message" ng-show="register.successMsg">

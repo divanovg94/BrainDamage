@@ -17,7 +17,6 @@ UserSchema.pre("save",function(next){
         user.password=hash;
         next();
     });
-  
 });
  //comapre the cryped password with the password that user entar and this function comapreSync take 
     // two parametres  bacon with is the cyrped password and  the password of user 

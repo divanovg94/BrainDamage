@@ -1,7 +1,5 @@
-<div class="page-header">
-    <h1>Hello {{main.username}} </h1>
-
-    <a ng-show="main.isLoggedIn" href="/game" ng-click="main.easy();">Game-easy</a>
-    <a ng-show="main.isLoggedIn" href="/game" ng-click="main.normal();">Game-normal</a>
-    <a ng-show="main.isLoggedIn" href="/game" ng-click="main.hard();">Game-hard</a>
+<div id="home">
+    <a class="lvlBtns" ng-show="main.isLoggedIn" href="/game" ng-click="main.easy();"><img src="assets/sprites/easy.png" /></a>
+    <a class="lvlBtns" ng-show="main.isLoggedIn" href="/game" ng-click="main.normal();"><img src="assets/sprites/normal.png" /></a>
+    <a class="lvlBtns" ng-show="main.isLoggedIn" href="/game" ng-click="main.hard();"><img src="assets/sprites/hard.png" /></a>
 </div>

@@ -48,7 +48,6 @@ function running(startPoint, endPoint, imgPath, isLeft) {
             }
         }
         pos -= spriteWidth * 2;
-        clearingTexture()
         if (pos <= spriteWidth) {
             pos = 1845;
         }

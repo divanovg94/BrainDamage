@@ -1,12 +1,13 @@
 <div id="body" ng-controller="gameController">
-    <div id="container" >
+    <div id="container">
         <canvas id="thegame" width="1170" height="460"></canvas>
 
-        <span ng-controller="timerController" id="clock">{{clock}}</span>
-
-        <span id="gameResult" id="gameOver">{{gameResult}}</span>
-
+        <!--<span ng-controller="timerController" id="clock">{{clock}}</span>-->
+        <a href="/">
+            <div id="gameResult">{{gameResult}}</div>
+        </a>
         <div id="btmBar">
+            <img ng-controller="timerController" id="clock" src="assets/sprites/countDown/10.png" ng-src='{{clock}}' />
             <img id="hp" ng-src='{{hp}}' />
             <img id="hpL" ng-src='{{hpL}}' />
         </div>
@@ -19,7 +20,7 @@
             </div>
         </div>
     </div>
-        <script src="assets/js/animation.js"></script>
+    <script src="assets/js/animation.js"></script>
     <!--<script src="../assets/js/animation.js"></script>-->
     <!--<script src="assets/js/questionS.js"></script>-->
 </div>
