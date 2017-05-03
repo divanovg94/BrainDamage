@@ -1,0 +1,23 @@
+{
+  "name": "lasthope",
+  "version": "1.0.0",
+  "description": "Dimitur",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "*",
+    "body-parser": "*",
+    "express": "*",
+    "express-session": "^1.15.2",
+    "jsonwebtoken": "^7.4.0",
+    "mongoose": "*",
+    "morgan": "*",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1"
+  }
+}

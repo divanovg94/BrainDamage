@@ -1,0 +1,39 @@
+<div class=page-header>
+    <h1>Log In</h1>
+</div>
+ <!--when  this form is sumbmit active the function regUser-->
+ <!--redData function get all data from cleint and create a single data user-->
+ <!--doLogin this is the function in mainCtrl-->
+<form ng-submit="main.doLogin(loginData);">
+    <label>Username:</label>
+<input type="text" class="form-control" placeholder="Enter Username" name="username" ng-model="main.loginData.username">
+
+<label>Password:</label>
+<input type="password" class="form-control" placeholder="Enter Password"  name="password" ng-model="main.loginData.password" >
+
+<button class="btn btn-primary" type="submit"> Sign In </button>&nbsp
+ <!--/auth/facebook from passport.js app.get("/auth...")-->
+    <button type="button" class="btn btn-success" ng-click="main.facebook();">Facebook</button>
+    </form> 
+
+    <!--so when this.loading =true show it-->
+    <div class="jumbotron text-center" ng-show="main.loading">
+        <span class="glyphicon glyphicon-repeat spinner"></span>
+        <p>Loading....</p>
+        
+        </div> 
+        <br>
+    <!--ng-show  apperat when register.successMsg-->
+    <div class="row show-hide-message" ng-show="main.successMsg">
+        <!--this is how angular pass data with double {} -> {{}}-->
+        <!--we need to write also register from <form ng-submit="register.regUser(regData);"> so we will write {{register.successMsg}}-->
+        <div class="alert alert-success">{{main.successMsg}}</div>
+    </div>
+    <br>
+     <!--ng-show  apperat when register.successMsg-->
+     <div class="row show-hide-message" ng-show="main.errorMsg">
+        <div class="alert alert-danger">{{main.errorMsg}}</div>
+    </div>
+      <div class="row show-hide-message" ng-show="facebook.errorMsg">
+        <div class="alert alert-danger">{{facebook.errorMsg}}</div>
+    </div>
